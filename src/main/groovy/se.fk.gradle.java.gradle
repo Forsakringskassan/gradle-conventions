@@ -1,0 +1,167 @@
+import org.gradle.api.model.ObjectFactory
+import org.gradle.api.provider.Property
+
+class JavaExtension {
+	final ListProperty<String> generatedSourceFolders
+	final ListProperty<String> extraTestSourceFolders
+	final Property<Integer> javaVersion
+
+	JavaExtension(ObjectFactory objects) {
+		generatedSourceFolders = objects.listProperty(String)
+		extraTestSourceFolders = objects.listProperty(String)
+		javaVersion = objects.property(Integer)
+
+		// Set defaults
+		generatedSourceFolders.convention([
+			"generatedSourceFolders",
+			"src/gen/java",
+			"src/generated/java",
+			"src/generated-source/java"
+		])
+		extraTestSourceFolders.convention([
+			"extraTestSourceFolders",
+			"src/test/generated"
+		])
+		javaVersion.convention(11)
+	}
+}
+
+project.extensions.create('javaExtension', JavaExtension, project.objects)
+
+
+project.plugins.apply 'java-library'
+project.plugins.apply 'eclipse'
+project.plugins.apply 'groovy'
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+	gradlePluginPortal()
+}
+
+plugins.withType(JavaPlugin) {
+	project.extensions.javaExtension.generatedSourceFolders
+			.get()
+			.each { dir ->
+				sourceSets.named("main") {
+					logger.info("Including generated source folder: " + dir)
+					java.srcDir(dir)
+				}
+			}
+
+	project.extensions.javaExtension.extraTestSourceFolders
+			.get()
+			.each { dir ->
+				sourceSets.named("test") {
+					logger.info("Including generated source folder: " + dir)
+					java.srcDir(dir)
+				}
+			}
+}
+
+test {
+	if (System.getProperty('DEBUG', 'false') == 'true') {
+		jvmArgs '-Xdebug',
+				'-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=9009',
+				'-parameters'
+	}
+}
+
+eclipse {
+	classpath {
+		downloadSources = true
+		downloadJavadoc = true
+	}
+}
+
+
+/**
+ * Code gen
+ */
+def generatedDir = file("src/generated-source/java")
+task prepareJavacCodegenFolder {
+	doLast {
+		if (generatedDir.exists()) {
+			delete generatedDir
+		}
+		generatedDir.mkdirs()
+	}
+}
+compileJava.dependsOn "prepareJavacCodegenFolder"
+shouldGitIgnore("src/generated-source")
+sourceSets.main.java.srcDirs += generatedDir
+sourceSets.configureEach { sourceSet ->
+	tasks.named(sourceSet.compileJavaTaskName).configure {
+		options.annotationProcessorGeneratedSourcesDirectory = generatedDir
+	}
+}
+
+tasks.withType(JavaCompile) {
+	options.compilerArgs << "-Xlint:-deprecation"
+	options.compilerArgs << "-Xlint:-processing"
+	options.compilerArgs << "-Xdoclint:none"
+	options.warnings = false
+	options.compilerArgs << "-parameters"
+	options.compilerArgs << "-s"
+	options.compilerArgs << generatedDir
+	options.encoding = "UTF-8"
+}
+
+allprojects {
+	tasks.withType(Javadoc) {
+		options.addStringOption('Xdoclint:none', '-quiet')
+	}
+}
+
+jar {
+	manifest {
+		attributes 'name': project.name
+		attributes 'Automatic-Module-Name': project.group + "." + project.name
+	}
+	from "$rootDir/ci"
+}
+
+java {
+	withSourcesJar()
+	withJavadocJar()
+	toolchain {
+		languageVersion = project.providers.provider {
+			JavaLanguageVersion.of(project.extensions.javaExtension.javaVersion.get())
+		}
+	}
+	sourceCompatibility = project.providers.provider {
+		JavaVersion.toVersion(project.extensions.javaExtension.javaVersion.get())
+	}.get()
+	targetCompatibility = project.providers.provider {
+		JavaVersion.toVersion(project.extensions.javaExtension.javaVersion.get())
+	}.get()
+}
+
+def allCompileTasks = tasks.matching {
+	it.name.startsWith("compile") && it.name.endsWith("Java")
+}
+
+tasks.named("sourcesJar") {
+	dependsOn allCompileTasks
+}
+
+tasks.named("javadoc") {
+	dependsOn allCompileTasks
+}
+
+tasks.withType(JavaCompile).configureEach {
+	options.release.set(project.providers.provider {
+		project.extensions.javaExtension.javaVersion.get()
+	})
+}
+
+def shouldGitIgnore(content) {
+	def gitIgnoreFile = file("$rootDir/.gitignore")
+	if (!gitIgnoreFile.exists()) {
+		throw new RuntimeException("There should be a .gitignore in the root of the repo.")
+	}
+	def gitIgnoreContent = gitIgnoreFile.text
+	if (!gitIgnoreContent.contains(content)) {
+		throw new RuntimeException(content + " should be included in .gitignore.")
+	}
+}

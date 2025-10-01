@@ -1,0 +1,26 @@
+plugins {
+	id "se.fk.gradle.java" apply false
+	id "se.fk.gradle.pom" apply false
+	id "se.fk.gradle.publish-java" apply false
+	id "se.fk.gradle.static-code-analysis" apply false
+	id "se.fk.gradle.formatting" apply false
+	id "se.bjurr.gradle.update-versions"
+	id "se.fk.gradle.release"
+	id "se.fk.gradle.sign" apply false
+}
+
+allprojects {
+	apply plugin: "se.fk.gradle.java"
+	apply plugin: "se.fk.gradle.pom"
+	apply plugin: "se.fk.gradle.publish-java"
+	apply plugin: "se.fk.gradle.static-code-analysis"
+	apply plugin: "se.fk.gradle.formatting"
+	apply plugin: "se.fk.gradle.sign"
+}
+
+releaseExtension {
+	releasePostTasks = [
+		"publish",
+		"closeAndReleaseStagingRepositories",
+	]
+}

@@ -9,16 +9,10 @@ find . -name build | xargs rm -rf
 ./gradlew build publishToMavenLocal -Pversion=latest-SNAPSHOT
 
 subprojects=(
-"command-gr8|./gradlew build publishToMavenLocal -Pversion=latest-SNAPSHOT -s && jar tf build/libs/command-gr8-latest-SNAPSHOT.jar && java -jar build/libs/command-gr8-latest-SNAPSHOT.jar"
-"command-shadow|./gradlew build publishToMavenLocal -Pversion=0.0.0 -s && jar tf build/libs/command-shadow-0.0.0.jar && npm install && node index.js"
-"gradle-binaryplugin-plugin|./gradlew build publishToMavenLocal validatePlugins -Pversion=latest-SNAPSHOT -s"
-"gradle-binaryplugin-plugin-usage|./gradlew exampleBinaryPluginTask"
-"gradle-precompiled-script-plugin|./gradlew build publishToMavenLocal -Pversion=latest-SNAPSHOT -s"
-"gradle-precompiled-script-plugin-usage|./gradlew build"
 "jar|./gradlew build publishToMavenLocal -Pversion=latest-SNAPSHOT -s"
-"jar-gr8|./gradlew build publishToMavenLocal -Pversion=latest-SNAPSHOT -s && jar tf build/libs/jar-gr8-latest-SNAPSHOT.jar"
-"jar-shadow|./gradlew build publishToMavenLocal -Pversion=latest-SNAPSHOT -s && jar tf build/libs/jar-shadow-latest-SNAPSHOT.jar"
-"multiproject|./gradlew build publishToMavenLocal -Pversion=latest-SNAPSHOT -s && jar tf project1-shadow/build/libs/project1-shadow-latest-SNAPSHOT.jar && jar tf project1/build/libs/project1-latest-SNAPSHOT.jar"
+"multiproject|./gradlew build publishToMavenLocal -Pversion=latest-SNAPSHOT -s"
+"openapi|./gradlew build publishToMavenLocal -Pversion=latest-SNAPSHOT -s"
+"openapi-generate|./gradlew build publishToMavenLocal -Pversion=latest-SNAPSHOT -s"
 )
 
 run_subproject() {

@@ -1,0 +1,18 @@
+plugins {
+	id "se.fk.gradle.bundle-jar" version "latest-SNAPSHOT"
+	id "se.fk.gradle.openapi-generate" version "latest-SNAPSHOT"
+}
+
+fkOpenApiGenerate {
+	generatorName.set("spring")
+	openapiDependencies.set([
+		"se.fk.gradle.examples:openapi:latest-SNAPSHOT"
+	])
+	inputSpecFormat.set(InputSpecFormat.YAML)
+}
+
+dependencies {
+	implementation 'org.springframework:spring-web:6.1.4'
+	implementation 'org.springframework:spring-context:6.1.4'
+	implementation 'org.springframework.boot:spring-boot-starter-validation:3.2.2'
+}

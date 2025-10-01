@@ -1,8 +1,0 @@
-plugins {
-	id "groovy-gradle-plugin"
-	id "se.bjurr.gradle.bundle-jar" version "latest-SNAPSHOT"
-}
-
-javaExtension {
-	javaVersion = 11
-}

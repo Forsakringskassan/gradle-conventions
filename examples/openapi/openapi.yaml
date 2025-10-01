@@ -1,0 +1,29 @@
+openapi: 3.0.3
+info:
+  title: Ping API
+  description: A simple API with a ping endpoint.
+  version: 1.0.0
+servers:
+  - url: https://api.example.com
+    description: Example server
+paths:
+  /api/ping:
+    get:
+      summary: Health check endpoint
+      description: Returns a pong response to confirm the API is alive.
+      responses:
+        '200':
+          description: Successful ping
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PingResponse'
+
+components:
+  schemas:
+    PingResponse:
+      type: object
+      properties:
+        pong:
+          type: boolean
+          example: true

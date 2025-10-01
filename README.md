@@ -14,6 +14,8 @@ The `se.fk.gradle.bundle-jar` is intended to fulfill most use cases. It might be
 
 - `se.fk.gradle.bundle-openapi` - Applied in root for API repositories, to prodouce a JAR containing the specification.
 
+See example in [api-template](https://github.com/Forsakringskassan/api-template).
+
 ## OpenAPI code generation
 
 - `se.fk.gradle.openapi-generate` - Can be applied whenever you need code generated from a JAR produced by `se.fk.gradle.bundle-openapi`.

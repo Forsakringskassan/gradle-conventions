@@ -13,3 +13,4 @@ examples/*/gradlew.bat
 examples/*/.gradle
 examples/*/build
 .idea
+**/generated-source/*

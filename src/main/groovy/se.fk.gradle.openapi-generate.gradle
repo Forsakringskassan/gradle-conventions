@@ -1,0 +1,188 @@
+plugins {
+	id 'java-library'
+}
+
+import org.gradle.api.provider.Property
+import org.gradle.api.provider.ListProperty
+
+enum InputSpecFormat {
+	YAML("yaml"),
+	JSON("json");
+
+	private final String endian;
+
+	private InputSpecFormat(String endian) {
+		this.endian = endian;
+	}
+
+	public String toEndian() {
+		return endian;
+	}
+}
+
+interface FKOpenApiGeneratePluginExtension {
+	/**
+	 * Name of the generator to use, see https://openapi-generator.tech/docs/generators
+	 */
+	Property<String> getGeneratorName()
+	/**
+	 * Format of the input specification file within the dependency.
+	 */
+	Property<InputSpecFormat> getInputSpecFormat()
+	/**
+	 * List of dependencies containing OpenAPI specifications to generate code from.
+	 */
+	ListProperty<String> getOpenapiDependencies()
+}
+
+def extension = project.extensions.create("fkOpenApiGenerate", FKOpenApiGeneratePluginExtension)
+
+// Default config
+extension.generatorName.convention("spring")
+extension.openapiDependencies.convention([])
+extension.inputSpecFormat.convention(InputSpecFormat.YAML)
+
+// Implementation
+def inputSpecRootDir = "$buildDir/openapi-specs".toString()
+def openapiGeneratedSourceFolder = project.buildDir.toPath().resolve("openapi-generated").toFile()
+
+project.afterEvaluate {
+	extension.openapiDependencies.get().each { apiDependency ->
+		def dependencyParts = apiDependency.split(':')
+		def dependencyGroup = dependencyParts[0]
+		def dependencyName = dependencyParts[1]
+		def apiDependencySafeName = apiDependency.replaceAll("[^a-zA-Z]","")
+		def copyTaskName = "copyOpenapiDependencies" + apiDependencySafeName
+		def targetOpenapiSpec = inputSpecRootDir + "/openapi-" + apiDependencySafeName + "." + extension.inputSpecFormat.get().toEndian()
+
+		tasks.create(name: copyTaskName) {
+			doFirst {
+				/**
+				 * Copy spec from dependency.
+				 */
+				def apiDependencyConfiguration = configurations.detachedConfiguration(dependencies.create(apiDependency))
+				logger.lifecycle("Copying: " + apiDependency + "\nTo: " + targetOpenapiSpec)
+				copyResourceFromConfiguration(apiDependencyConfiguration, apiDependency, "openapi." + extension.inputSpecFormat.get().toEndian(), targetOpenapiSpec)
+			}
+		}
+
+		def generateTaskName = "generateOpenApiSource" + apiDependencySafeName
+		def tempGeneratedFolder = project.buildDir.getAbsolutePath() + "/generated/"
+		tasks.create(name: generateTaskName, type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask) {
+			logger.lifecycle("Generating code with: " + extension.generatorName.get() + "\nTo: " + tempGeneratedFolder + "\nFrom: " + targetOpenapiSpec+"\n")
+
+			generatorName = extension.generatorName
+			apiPackage = providers.provider({
+				return "${project.group}.${apiDependencySafeName}.generatedsource"
+			})
+			modelPackage = providers.provider({
+				return "${project.group}.${apiDependencySafeName}.generatedsource.model"
+			})
+			inputSpec = targetOpenapiSpec
+			outputDir = tempGeneratedFolder
+
+			additionalProperties = [
+				interfaceOnly: "true",
+				skipDefaultInterface: "true",
+				useBeanValidation: "true",
+				performBeanValidation: "false",
+				useTags: "true",
+				serializableModel: "true",
+				useSwaggerAnnotations: "false",
+				dateLibrary: "java8",
+				containerDefaultToNull: "true",
+				useJakartaEe: "true",
+				sourceFolder: ""
+			]
+
+			globalProperties.set([
+				models: "",
+				apis: "",
+				supportingFiles: "false"
+			])
+
+			doLast {
+				/**
+				 * Move generated code to root folder.
+				 * Perhaps this bug https://github.com/OpenAPITools/sbt-openapi-generator/issues/31
+				 */
+				def moveFrom = file(tempGeneratedFolder)
+				def moveTo = openapiGeneratedSourceFolder
+				moveFrom.renameTo(moveTo)
+				logger.lifecycle("Moved ${moveFrom}\n to ${moveTo}.")
+			}
+
+			dependsOn tasks[copyTaskName]
+		}
+
+		compileJava.dependsOn tasks[generateTaskName]
+	}
+}
+
+sourceSets.main.java.srcDirs += openapiGeneratedSourceFolder
+
+dependencies {
+	compileOnly 'io.swagger.core.v3:swagger-annotations:2.2.30'
+	compileOnly 'org.openapitools:jackson-databind-nullable:0.2.6'
+	compileOnly "jakarta.platform:jakarta.jakartaee-api:9.0.0"
+}
+
+def copyResourceToFile(String fromResource, String toFile, classloader = project.buildscript.classLoader) {
+	logger.info("Copy " + fromResource + " to " + toFile)
+
+	def resourceText = null
+
+	// Try with classloader
+	def resourceUri = classloader.getResource(fromResource)
+	if (resourceUri != null) {
+		logger.debug("uri " + resourceUri)
+		resourceText = resourceUri.getText()
+	} else {
+		// Try with filesystem
+		def fileInResources = file("src/main/resources/$fromResource")
+		if (fileInResources.exists()) {
+			resourceText = fileInResources.text
+		}
+	}
+
+	// Throw exception if we couldn't read the file
+	if (resourceText == null) {
+		throw new RuntimeException("Could not find " + fromResource)
+	}
+	logger.debug("text " + resourceText)
+
+	// Copy to toFile
+	file(toFile).getParentFile().mkdirs()
+	FileWriter fw = new FileWriter(toFile);
+	BufferedWriter bw = new BufferedWriter(fw);
+	bw.write(resourceText);
+	bw.close();
+
+	logger.debug("done")
+}
+
+def copyResourceFromConfiguration(configuration, String dependency, String source, String target) {
+	def dependencyParts = dependency.split(':')
+	def dependencyGroup = dependencyParts[0].split('\\.').join('/')
+	def dependencyName = dependencyParts[1]
+	def dependencyVersion = dependencyParts[2]
+	def lookFor = dependencyGroup + "/" + dependencyName + "/" + dependencyVersion
+	logger.lifecycle("Looking for JAR: " + lookFor)
+
+	def found = []
+	def foundUrl = configuration.files
+			.find { file ->
+				def str = file.toURI().toURL().toString()
+				found.add(str)
+				str.contains(lookFor)
+			}
+	if (foundUrl == null) {
+		throw new RuntimeException("Was unable to find " + dependency + " among: " + found)
+	}
+	logger.info("Found " + dependency + " as " + foundUrl)
+	List urls = new ArrayList()
+	urls.add(foundUrl.toURI().toURL())
+	def classLoader = new URLClassLoader(urls.toArray(new URL[0]));
+
+	copyResourceToFile(source, target, classLoader)
+}

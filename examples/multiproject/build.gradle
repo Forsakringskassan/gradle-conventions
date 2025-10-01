@@ -1,26 +1,24 @@
 plugins {
-	id "se.bjurr.gradle.bundle-jar-shadow" version "latest-SNAPSHOT"
+	id "se.fk.gradle.bundle-jar" version "latest-SNAPSHOT"
 }
 
 javaExtension {
-	javaVersion = 11
+	javaVersion = 17
 }
 
 project("project1", {
+	dependencies {
+		compileOnly "org.immutables:value:2.10.1"
+		annotationProcessor 'org.immutables:value:2.10.1'
+	}
+})
+
+project("project2", {
 	staticCodeAnalysisExtension {
 		maxViolations.set(1)
 	}
 	dependencies {
-		implementation 'com.google.code.gson:gson:2.13.1'
-	}
-})
-
-project("project1-shadow", {
-	shadowExtension {
-		relocate.set("com")
-	}
-
-	dependencies {
 		implementation project(":project1")
+		implementation 'com.google.code.gson:gson:2.13.1'
 	}
 })

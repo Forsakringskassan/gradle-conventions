@@ -1,0 +1,73 @@
+plugins {
+	id 'com.diffplug.spotless'
+}
+
+def eclipseConfigFileSource = "formatting/code-standard-java-eclipse.xml"
+def eclipseConfigFileTarget = "$buildDir/code-standard-java-eclipse.xml"
+def propSkipApply = "skip-automatic-fk-code-standard-apply"
+
+spotless {
+	java {
+		def e = eclipse("4.29")
+		copyResourceToFile(eclipseConfigFileSource, eclipseConfigFileTarget)
+		e.configFile(eclipseConfigFileTarget)
+		target "**/*.java"
+		// Avoiding: Task ':spotlessJava' uses this output of task ':compileJava'
+		targetExclude "**/gen/**", "**/generated/**", "**/generated-source/**"
+	}
+
+	json {
+		target "*.json", "src/main/**/*.json", "src/test/**/*.json", "mocks/**/*.json"
+		targetExclude "**/gen/**", "**/generated/**", "**/generated-source/**"
+		gson()
+				.indentWithSpaces(2)
+				.version('2.11.0')
+	}
+}
+
+assemble.doLast {
+	copyResourceToFile(eclipseConfigFileSource, eclipseConfigFileTarget)
+}
+
+final boolean shouldFormat = project.getProperties().get(propSkipApply) == null;
+if (shouldFormat) {
+	logger.info("Automatic formatting, can be turned of with " + propSkipApply + " property.");
+	check.dependsOn spotlessApply
+}
+else {
+	logger.lifecycle("Skipping automatic formatting because of " + propSkipApply + " property.");
+}
+
+def copyResourceToFile(String fromResource, String toFile, classloader = project.buildscript.classLoader) {
+	logger.info("Copy " + fromResource + " to " + toFile)
+
+	def resourceText = null
+
+	// Try with classloader
+	def resourceUri = classloader.getResource(fromResource)
+	if (resourceUri != null) {
+		logger.debug("uri " + resourceUri)
+		resourceText = resourceUri.getText()
+	} else {
+		// Try with filesystem
+		def fileInResources = file("src/main/resources/$fromResource")
+		if (fileInResources.exists()) {
+			resourceText = fileInResources.text
+		}
+	}
+
+	// Throw exception if we couldn't read the file
+	if (resourceText == null) {
+		throw new RuntimeException("Could not find " + fromResource)
+	}
+	logger.debug("text " + resourceText)
+
+	// Copy to toFile
+	file(toFile).getParentFile().mkdirs()
+	FileWriter fw = new FileWriter(toFile);
+	BufferedWriter bw = new BufferedWriter(fw);
+	bw.write(resourceText);
+	bw.close();
+
+	logger.debug("done")
+}

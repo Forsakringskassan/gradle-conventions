@@ -10,6 +10,7 @@ Template projects:
 
 - <https://github.com/Forsakringskassan/template-api>
 - <https://github.com/Forsakringskassan/template-jar>
+- <https://github.com/Forsakringskassan/template-jar-client>
 
 ## Libraries and applications
 

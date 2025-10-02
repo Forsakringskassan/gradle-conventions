@@ -1,3 +1,9 @@
+## 1.3.0 (2025-10-02)
+
+### Features
+
+-  only include repositories with maven packages ([42e79](https://github.com/Forsakringskassan/gradle-conventions/commit/42e793f0f92d460) Tomas Bjerre)  
+
 ## 1.2.1 (2025-10-02)
 
 ### Bug Fixes

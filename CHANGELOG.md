@@ -1,3 +1,9 @@
+## 1.3.1 (2025-10-02)
+
+### Bug Fixes
+
+-  getting repos faster ([0b1fb](https://github.com/Forsakringskassan/gradle-conventions/commit/0b1fb4985cc0c78) Tomas Bjerre)  
+
 ## 1.3.0 (2025-10-02)
 
 ### Features

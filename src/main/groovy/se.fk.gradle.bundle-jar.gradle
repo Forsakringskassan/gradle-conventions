@@ -6,7 +6,6 @@ plugins {
 	id "se.fk.gradle.formatting" apply false
 	id "se.bjurr.gradle.update-versions"
 	id "se.fk.gradle.release"
-	id "se.fk.gradle.sign" apply false
 }
 
 allprojects {
@@ -15,7 +14,6 @@ allprojects {
 	apply plugin: "se.fk.gradle.publish-java"
 	apply plugin: "se.fk.gradle.static-code-analysis"
 	apply plugin: "se.fk.gradle.formatting"
-	apply plugin: "se.fk.gradle.sign"
 }
 
 releaseExtension {

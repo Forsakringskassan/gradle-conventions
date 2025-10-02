@@ -3,7 +3,6 @@
  */
 plugins {
 	id "groovy-gradle-plugin"
-	id "io.github.gradle-nexus.publish-plugin" version "2.0.0" apply false
 	id "se.bjurr.gitchangelog.git-changelog-gradle-plugin" version "3.1.1" apply false
 	id "com.diffplug.spotless" version "8.0.0"
 	id "se.bjurr.gradle.update-versions" version "1.5.2"
@@ -13,7 +12,6 @@ plugins {
  * Dependencies needed by the plugin in src/main/groovy
  */
 dependencies {
-	implementation "io.github.gradle-nexus:publish-plugin:2.0.0"
 	implementation "se.bjurr.gitchangelog:git-changelog-gradle-plugin:3.1.1"
 	implementation "se.bjurr.gradle.update-versions:se.bjurr.gradle.update-versions.gradle.plugin:1.5.1"
 	implementation "se.bjurr.violations:violations-lib:1.160.1"
@@ -43,7 +41,6 @@ processResources.dependsOn spotlessApply
 apply from: "src/main/groovy/se.fk.gradle.pom.gradle"
 apply from: "src/main/groovy/se.fk.gradle.publish-java.gradle"
 apply from: "src/main/groovy/se.fk.gradle.release.gradle"
-apply from: "src/main/groovy/se.fk.gradle.sign.gradle"
 
 tasks.named("release") {
 	tasks = [

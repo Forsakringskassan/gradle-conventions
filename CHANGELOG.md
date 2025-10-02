@@ -1,3 +1,9 @@
+## 1.1.2 (2025-10-02)
+
+### Bug Fixes
+
+-  release script ([2fd40](https://github.com/Forsakringskassan/gradle-conventions/commit/2fd4037c1210138) Tomas Bjerre)  
+
 ## 1.1.1 (2025-10-02)
 
 ### Bug Fixes

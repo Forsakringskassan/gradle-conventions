@@ -1,7 +1,10 @@
-name: Call Gradle Release
+name: Gradle Release
 
 on: [workflow_dispatch]
 
 jobs:
   call-workflow:
     uses: Forsakringskassan/.github/.github/workflows/gradle-release.yaml@main
+  call-publish:
+    needs: call-workflow
+    uses: Forsakringskassan/.github/.github/workflows/publish-release-on-tag-push.yaml@main

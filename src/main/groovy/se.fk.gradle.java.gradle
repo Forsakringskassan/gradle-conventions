@@ -33,11 +33,27 @@ project.plugins.apply 'java-library'
 project.plugins.apply 'eclipse'
 project.plugins.apply 'groovy'
 
+
 repositories {
 	mavenLocal()
 	mavenCentral()
 	gradlePluginPortal()
 }
+
+def githubRepos = ["gradle-conventions", "template-jar", "template-api"]
+
+githubRepos.each { repoName ->
+  repositories {
+    maven {
+      url = uri("https://maven.pkg.github.com/Forsakringskassan/$repoName")
+      credentials {
+        username = System.getenv("GITHUB_ACTOR")
+        password = System.getenv("GITHUB_TOKEN")
+      }
+    }
+  }
+}
+
 
 plugins.withType(JavaPlugin) {
 	project.extensions.javaExtension.generatedSourceFolders

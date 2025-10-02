@@ -6,6 +6,11 @@ See documentation [in the code](/src/main/groovy) and also [running examples](/e
 
 Release with `./gradlew updateVersion && ./gradlew release`.
 
+Template projects:
+
+- <https://github.com/Forsakringskassan/template-api>
+- <https://github.com/Forsakringskassan/template-jar>
+
 ## Libraries and applications
 
 The `se.fk.gradle.bundle-jar` is intended to fulfill most use cases. It might be a library or an application.
@@ -19,7 +24,6 @@ See example in [template-api](https://github.com/Forsakringskassan/template-api)
 ## OpenAPI code generation
 
 - `se.fk.gradle.openapi-generate` - Can be applied whenever you need code generated from a JAR produced by `se.fk.gradle.bundle-openapi`.
-
 
 ## Requirements
 
@@ -41,5 +45,3 @@ EOL
   --gradle-version="${GRADLE_VERSION}" \
   --distribution-type=bin
 ```
-
-

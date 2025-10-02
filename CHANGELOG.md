@@ -1,3 +1,9 @@
+## 1.2.0 (2025-10-02)
+
+### Features
+
+-  automatically find package repositories within fk ([a58c1](https://github.com/Forsakringskassan/gradle-conventions/commit/a58c18e451bc44a) Tomas Bjerre)  
+
 ## 1.1.2 (2025-10-02)
 
 ### Bug Fixes

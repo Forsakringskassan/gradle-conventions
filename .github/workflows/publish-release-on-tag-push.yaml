@@ -9,4 +9,4 @@ on:
 
 jobs:
   call-workflow:
-    uses: tomasbjerre/.github/.github/workflows/publish-release-on-tag-push.yaml@master
+    uses: Forsakringskassan/.github/.github/workflows/publish-release-on-tag-push.yaml@master

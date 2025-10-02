@@ -163,18 +163,19 @@ def copyResourceToFile(String fromResource, String toFile, classloader = project
 
 def copyResourceFromConfiguration(configuration, String dependency, String source, String target) {
 	def dependencyParts = dependency.split(':')
-	def dependencyGroup = dependencyParts[0].split('\\.').join('/')
+	def dependencyGroup = dependencyParts[0]
 	def dependencyName = dependencyParts[1]
 	def dependencyVersion = dependencyParts[2]
-	def lookFor = dependencyGroup + "/" + dependencyName + "/" + dependencyVersion
-	logger.lifecycle("Looking for JAR: " + lookFor)
+	def lookFor_alt1 = dependencyGroup.split('\\.').join('/') + "/" + dependencyName + "/" + dependencyVersion
+	def lookFor_alt2 = dependencyGroup + "/" + dependencyName + "/" + dependencyVersion
+	logger.lifecycle("Looking for JAR: " + lookFor_alt1 + " or " + lookFor_alt2 + " in configuration: " + configuration)
 
 	def found = []
 	def foundUrl = configuration.files
 			.find { file ->
 				def str = file.toURI().toURL().toString()
 				found.add(str)
-				str.contains(lookFor)
+				str.contains(lookFor_alt1) || str.contains(lookFor_alt2)
 			}
 	if (foundUrl == null) {
 		throw new RuntimeException("Was unable to find " + dependency + " among: " + found)

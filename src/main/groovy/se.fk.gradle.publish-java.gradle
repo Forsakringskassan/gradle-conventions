@@ -33,14 +33,14 @@ publishing {
 	}
 
 	repositories {
-        maven {
-            name = "GitHubPackages"
-            def repo = System.getenv("GITHUB_REPOSITORY") ?: "fallbackOwner/fallbackRepo"
-            url = uri("https://maven.pkg.github.com/${repo}")
-            credentials {
-                username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_ACTOR")
-                password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
-            }
-        }
-    }
+		maven {
+			name = "GitHubPackages"
+			def repo = System.getenv("GITHUB_REPOSITORY") ?: "fallbackOwner/fallbackRepo"
+			url = uri("https://maven.pkg.github.com/${repo}")
+			credentials {
+				username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_ACTOR")
+				password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
+			}
+		}
+	}
 }

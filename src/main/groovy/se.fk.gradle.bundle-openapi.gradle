@@ -19,7 +19,5 @@ allprojects {
 }
 
 releaseExtension {
-	releasePostTasks = [
-		"publish",
-	]
+	releasePostTasks = ["publish",]
 }

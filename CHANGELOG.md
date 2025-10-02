@@ -1,3 +1,9 @@
+## 1.1.1 (2025-10-02)
+
+### Bug Fixes
+
+-  group might be dot separated ([bb027](https://github.com/Forsakringskassan/gradle-conventions/commit/bb02732a59a0c7d) Tomas Bjerre)  
+
 ## 1.1.0 (2025-10-02)
 
 ### Features

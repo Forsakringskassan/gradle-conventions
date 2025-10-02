@@ -52,8 +52,8 @@ if (cacheFile.exists() && System.currentTimeMillis() - cacheFile.lastModified() 
 }
 
 repositories {
+	logger.lifecycle("Adding GitHub Packages repositories for ${githubOrg}: ${allRepos.join(", ")}")
 	allRepos.each { repoName ->
-		logger.info("Adding GitHub Packages repository for ${githubOrg}/${repoName}")
 		maven {
 			url = uri("https://maven.pkg.github.com/${githubOrg}/${repoName}")
 			credentials {

@@ -1,12 +1,12 @@
 import org.gradle.api.model.ObjectFactory
+import groovy.json.JsonSlurper
+import groovy.json.JsonOutput
 
 class JavaRepositoriesExtension {
-	JavaRepositoriesExtension(ObjectFactory objects) {
-	}
+	JavaRepositoriesExtension(ObjectFactory objects) {}
 }
 
 project.extensions.create('javaRepositoriesExtension', JavaRepositoriesExtension, project.objects)
-
 
 project.plugins.apply 'java-library'
 
@@ -16,16 +16,13 @@ repositories {
 	gradlePluginPortal()
 }
 
-import groovy.json.JsonSlurper
-import groovy.json.JsonOutput
-
 def githubOrg = "Forsakringskassan"
-def maxAgeHours = System.getenv("GRADLE_CONVENTIONS_MAX_AGE_HOURS") ?: "24"
-
+def maxAgeMinutes = System.getenv("GRADLE_CONVENTIONS_MAX_AGE_MINUTES") ?: "10"
 def cacheFile = new File(gradle.gradleUserHomeDir, githubOrg+"-github-repos.json")
 
 def allRepos
-def maxAge = maxAgeHours.toInteger() * 60 * 60 * 1000
+def maxAge = maxAgeMinutes.toInteger() * 60 * 1000
+
 if (cacheFile.exists() && System.currentTimeMillis() - cacheFile.lastModified() < maxAge) {
 	logger.lifecycle("Using cached GitHub repos from ${cacheFile}, max age ${maxAgeHours} hours. Remove the file to force refresh.")
 	allRepos = new JsonSlurper().parse(cacheFile)
@@ -33,33 +30,48 @@ if (cacheFile.exists() && System.currentTimeMillis() - cacheFile.lastModified() 
 	logger.lifecycle("Gathering package repositories from GitHub.")
 	def perPage = 100
 	def page = 1
-	allRepos = []
+	def reposWithPackages = []
 
 	while (true) {
 		def apiUrl = "https://api.github.com/orgs/${githubOrg}/repos?per_page=${perPage}&page=${page}"
 		def token = System.getenv("GITHUB_TOKEN")
 		def connection = new URL(apiUrl).openConnection()
-		if (token) {
-			connection.setRequestProperty("Authorization", "token ${token}")
-		}
+		if (token) connection.setRequestProperty("Authorization", "token ${token}")
 		def reposJson = new JsonSlurper().parse(connection.getInputStream())
 		if (!reposJson || reposJson.isEmpty()) break
-			allRepos.addAll(reposJson.collect { it.name })
+
+			reposJson.each { repo ->
+				def repoName = repo.name
+				def packagesUrl = "https://api.github.com/repos/${githubOrg}/${repoName}/packages?package_type=maven"
+				def pkgConn = new URL(packagesUrl).openConnection()
+				if (token) pkgConn.setRequestProperty("Authorization", "token ${token}")
+				def packagesJson = new JsonSlurper().parse(pkgConn.getInputStream())
+
+				if (packagesJson && !packagesJson.isEmpty()) {
+					reposWithPackages << repoName
+				}
+			}
+
 		page++
 	}
 
+	allRepos = reposWithPackages
 	cacheFile.text = JsonOutput.toJson(allRepos)
 }
 
 repositories {
-	logger.lifecycle("Adding GitHub Packages repositories for ${githubOrg}: ${allRepos.join(", ")}")
-	allRepos.each { repoName ->
-		maven {
-			url = uri("https://maven.pkg.github.com/${githubOrg}/${repoName}")
-			credentials {
-				username = System.getenv("GITHUB_ACTOR")
-				password = System.getenv("GITHUB_TOKEN")
+	if (allRepos) {
+		logger.lifecycle("Adding GitHub Packages repositories for ${githubOrg}: ${allRepos.join(", ")}")
+		allRepos.each { repoName ->
+			maven {
+				url = uri("https://maven.pkg.github.com/${githubOrg}/${repoName}")
+				credentials {
+					username = System.getenv("GITHUB_ACTOR")
+					password = System.getenv("GITHUB_TOKEN")
+				}
 			}
 		}
+	} else {
+		logger.lifecycle("No GitHub Packages repositories found for ${githubOrg}.")
 	}
 }

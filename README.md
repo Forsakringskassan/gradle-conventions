@@ -13,8 +13,8 @@ This library is published here on GitHub. To use it you need credentials setup.
 - Go to https://github.com/settings/tokens
 - You only need `read:packages`
 - Add the credentials as environment variables, perhaps in `~/.bashrc`:
--- `export GITHUB_TOKEN=the-token`
--- `export GITHUB_ACTOR=your-github-user`
+  - `export GITHUB_TOKEN=the-token`
+  - `export GITHUB_ACTOR=your-github-user`
 
 ## Libraries and applications
 

@@ -1,3 +1,9 @@
+## 1.3.2 (2025-10-02)
+
+### Bug Fixes
+
+-  removing update-versions, does not work well with github packages ([c3237](https://github.com/Forsakringskassan/gradle-conventions/commit/c3237f6dd47514d) Tomas Bjerre)  
+
 ## 1.3.1 (2025-10-02)
 
 ### Bug Fixes

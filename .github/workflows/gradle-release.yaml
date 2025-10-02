@@ -1,0 +1,7 @@
+name: Call Gradle Release
+
+on: [workflow_dispatch]
+
+jobs:
+  call-workflow:
+    uses: Forsakringskassan/.github/.github/workflows/gradle-release.yaml@main

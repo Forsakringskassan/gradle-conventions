@@ -6,6 +6,7 @@ plugins {
 	id "se.bjurr.gitchangelog.git-changelog-gradle-plugin" version "3.1.1" apply false
 	id "com.diffplug.spotless" version "8.0.0"
 	id "se.bjurr.gradle.update-versions" version "1.5.2"
+	id "maven-publish"
 }
 
 /**
@@ -38,8 +39,21 @@ spotless {
 }
 processResources.dependsOn spotlessApply
 
+publishing {
+	repositories {
+        maven {
+            name = "GitHubPackages"
+            def repo = System.getenv("GITHUB_REPOSITORY") ?: "fallbackOwner/fallbackRepo"
+            url = uri("https://maven.pkg.github.com/${repo}")
+            credentials {
+                username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_ACTOR")
+                password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
+}
+
 apply from: "src/main/groovy/se.fk.gradle.pom.gradle"
-apply from: "src/main/groovy/se.fk.gradle.publish-java.gradle"
 apply from: "src/main/groovy/se.fk.gradle.release.gradle"
 
 tasks.named("release") {
@@ -48,7 +62,6 @@ tasks.named("release") {
 		"publishToMavenLocal",
 		'gitChangelog',
 		'commitChangelogTask',
-		"publish",
-		"closeAndReleaseStagingRepositories"
+		"publish"
 	]
 }

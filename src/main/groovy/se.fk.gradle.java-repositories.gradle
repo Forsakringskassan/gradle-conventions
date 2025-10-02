@@ -1,0 +1,65 @@
+import org.gradle.api.model.ObjectFactory
+
+class JavaRepositoriesExtension {
+	JavaRepositoriesExtension(ObjectFactory objects) {
+	}
+}
+
+project.extensions.create('javaRepositoriesExtension', JavaRepositoriesExtension, project.objects)
+
+
+project.plugins.apply 'java-library'
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+	gradlePluginPortal()
+}
+
+import groovy.json.JsonSlurper
+import groovy.json.JsonOutput
+
+def githubOrg = "Forsakringskassan"
+def maxAgeHours = System.getenv("GRADLE_CONVENTIONS_MAX_AGE_HOURS") ?: "24"
+
+def cacheFile = new File(gradle.gradleUserHomeDir, githubOrg+"-github-repos.json")
+
+def allRepos
+def maxAge = maxAgeHours.toInteger() * 60 * 60 * 1000
+if (cacheFile.exists() && System.currentTimeMillis() - cacheFile.lastModified() < maxAge) {
+	logger.lifecycle("Using cached GitHub repos from ${cacheFile}, max age ${maxAgeHours} hours. Remove the file to force refresh.")
+	allRepos = new JsonSlurper().parse(cacheFile)
+} else {
+	logger.lifecycle("Gathering package repositories from GitHub.")
+	def perPage = 100
+	def page = 1
+	allRepos = []
+
+	while (true) {
+		def apiUrl = "https://api.github.com/orgs/${githubOrg}/repos?per_page=${perPage}&page=${page}"
+		def token = System.getenv("GITHUB_TOKEN")
+		def connection = new URL(apiUrl).openConnection()
+		if (token) {
+			connection.setRequestProperty("Authorization", "token ${token}")
+		}
+		def reposJson = new JsonSlurper().parse(connection.getInputStream())
+		if (!reposJson || reposJson.isEmpty()) break
+			allRepos.addAll(reposJson.collect { it.name })
+		page++
+	}
+
+	cacheFile.text = JsonOutput.toJson(allRepos)
+}
+
+repositories {
+	allRepos.each { repoName ->
+		logger.info("Adding GitHub Packages repository for ${githubOrg}/${repoName}")
+		maven {
+			url = uri("https://maven.pkg.github.com/${githubOrg}/${repoName}")
+			credentials {
+				username = System.getenv("GITHUB_ACTOR")
+				password = System.getenv("GITHUB_TOKEN")
+			}
+		}
+	}
+}

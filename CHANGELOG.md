@@ -1,3 +1,9 @@
+## 1.2.1 (2025-10-02)
+
+### Bug Fixes
+
+-  logging ([eec06](https://github.com/Forsakringskassan/gradle-conventions/commit/eec06095fedefb9) Tomas Bjerre)  
+
 ## 1.2.0 (2025-10-02)
 
 ### Features

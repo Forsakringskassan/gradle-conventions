@@ -6,11 +6,36 @@ See documentation [in the code](/src/main/groovy) and also [running examples](/e
 
 Release with `./gradlew updateVersion && ./gradlew release`.
 
+Use these plugins like this:
+
+```groovy
+buildscript {
+  repositories {
+    gradlePluginPortal()
+    mavenCentral()
+    mavenLocal()
+    maven {
+      url = uri("https://maven.pkg.github.com/Forsakringskassan/gradle-conventions")
+      credentials {
+        username = System.getenv("GITHUB_ACTOR")
+        password = System.getenv("GITHUB_TOKEN")
+      }
+    }
+  }
+
+  dependencies {
+    classpath "se.fk.gradle:gradle-conventions:X"
+  }
+}
+
+apply plugin: "se.fk.gradle.[name-of-plugin]"
+```
+
 ## Setup
 
 This library is published here on GitHub. To use it you need credentials setup.
 
-- Go to https://github.com/settings/tokens
+- Go to <https://github.com/settings/tokens>
 - You only need `read:packages`
 - Add the credentials as environment variables, perhaps in `~/.bashrc`:
   - `export GITHUB_TOKEN=the-token`

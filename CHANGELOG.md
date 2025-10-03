@@ -1,3 +1,13 @@
+## 1.5.0 (2025-10-03)
+
+### Features
+
+-  5 minute cache time ([18045](https://github.com/Forsakringskassan/gradle-conventions/commit/18045198a07fdc1) Tomas Bjerre)  
+
+### Bug Fixes
+
+-  avoid infinite loop ([544e8](https://github.com/Forsakringskassan/gradle-conventions/commit/544e8340536d776) Tomas Bjerre)  
+
 ## 1.4.0 (2025-10-03)
 
 ### Features

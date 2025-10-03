@@ -17,7 +17,7 @@ repositories {
 }
 
 def githubOrg = "Forsakringskassan"
-def maxAgeMinutes = System.getenv("GRADLE_CONVENTIONS_MAX_AGE_MINUTES") ?: "1"
+def maxAgeMinutes = System.getenv("GRADLE_CONVENTIONS_MAX_AGE_MINUTES") ?: "5"
 def cacheFile = new File(gradle.gradleUserHomeDir, "${githubOrg}-github-packages.json")
 def token = System.getenv("GITHUB_TOKEN")
 if (!token) {

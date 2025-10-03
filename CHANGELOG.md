@@ -1,3 +1,9 @@
+## 1.5.1 (2025-10-03)
+
+### Bug Fixes
+
+-  **deps**  update dependency io.swagger.core.v3:swagger-annotations to v2.2.38 ([d03f5](https://github.com/Forsakringskassan/gradle-conventions/commit/d03f5744e212f3f) renovate[bot])  
+
 ## 1.5.0 (2025-10-03)
 
 ### Features

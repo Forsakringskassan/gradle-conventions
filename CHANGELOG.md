@@ -1,3 +1,9 @@
+## 1.4.0 (2025-10-03)
+
+### Features
+
+-  update-versions ([dccc2](https://github.com/Forsakringskassan/gradle-conventions/commit/dccc251ddf0b1b5) Tomas Bjerre)  
+
 ## 1.3.2 (2025-10-02)
 
 ### Bug Fixes

@@ -5,6 +5,7 @@ plugins {
 	id "se.fk.gradle.publish-java" apply false
 	id "se.fk.gradle.static-code-analysis" apply false
 	id "se.fk.gradle.formatting" apply false
+	id "se.bjurr.gradle.update-versions"
 	id "se.fk.gradle.release"
 	id "se.fk.gradle.openapi" apply false
 }

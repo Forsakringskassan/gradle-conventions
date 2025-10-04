@@ -59,23 +59,3 @@ See example in [template-api](https://github.com/Forsakringskassan/template-api)
 
 See example in [template-jar-api-generate](https://github.com/Forsakringskassan/template-jar-api-generate)
 
-## Requirements
-
-Gradle wrapper can be downloaded with:
-
-```sh
-GRADLE_VERSION=8.14.3
-
-cat > gradle/wrapper/gradle-wrapper.properties << EOL
-distributionBase=GRADLE_USER_HOME
-distributionPath=wrapper/dists
-distributionUrl=https\://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip
-networkTimeout=10000
-zipStoreBase=GRADLE_USER_HOME
-zipStorePath=wrapper/dists
-EOL
-
-./gradlew wrapper \
-  --gradle-version="${GRADLE_VERSION}" \
-  --distribution-type=bin
-```

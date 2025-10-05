@@ -41,7 +41,7 @@ This library is published here on GitHub. To use it you need credentials setup.
   - `export GITHUB_TOKEN=the-token`
   - `export GITHUB_ACTOR=your-github-user`
 
-## Libraries and applications
+## `se.fk.gradle.bundle-jar` - Libraries and applications
 
 The `se.fk.gradle.bundle-jar` is intended to fulfill most use cases. It might be a library or an application.
 

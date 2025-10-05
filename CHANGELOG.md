@@ -1,3 +1,12 @@
+## 1.5.2 (2025-10-05)
+
+### Bug Fixes
+
+-  **deps**  update dependency javax.ws.rs:javax.ws.rs-api to v2.1.1 ([730a8](https://github.com/Forsakringskassan/gradle-conventions/commit/730a82b40d1f19f) renovate[bot])  
+
+### Dependency updates
+
+- dependencies ([fe1dd](https://github.com/Forsakringskassan/gradle-conventions/commit/fe1ddbe74269aed) Tomas Bjerre)  
 ## 1.5.1 (2025-10-03)
 
 ### Bug Fixes

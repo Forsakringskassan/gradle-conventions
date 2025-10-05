@@ -234,7 +234,7 @@ task generatePmdRules {
 
 pmd {
 	sourceSets = [sourceSets.main]
-	toolVersion = '6.55.0'
+	toolVersion = '7.17.0'
 	ruleSets = [] // Gradle has some defaults that needs to be cleared
 	ruleSetFiles = files("$buildDir/pmd.xml")
 }

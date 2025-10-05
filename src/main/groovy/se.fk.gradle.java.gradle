@@ -22,7 +22,7 @@ class JavaExtension {
 			"extraTestSourceFolders",
 			"src/test/generated"
 		])
-		javaVersion.convention(17)
+		javaVersion.convention(25)
 	}
 }
 

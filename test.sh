@@ -10,7 +10,7 @@ find . -name build | xargs rm -rf
 ./gradlew build publishToMavenLocal -Pversion=latest-SNAPSHOT
 
 subprojects=(
-"jar|./gradlew build publishToMavenLocal -Pversion=latest-SNAPSHOT -s"
+"jar|./gradlew build publishToMavenLocal -Pversion=latest-SNAPSHOT -s && javap -verbose ./build/classes/java/main/example/Main.class | grep major"
 "multiproject|./gradlew build publishToMavenLocal -Pversion=latest-SNAPSHOT -s"
 "openapi|./gradlew build publishToMavenLocal -Pversion=latest-SNAPSHOT -s"
 "openapi-generate|./gradlew build publishToMavenLocal -Pversion=latest-SNAPSHOT -s"

@@ -64,6 +64,11 @@ publishing {
 apply from: "src/main/groovy/se.fk.gradle.pom.gradle"
 apply from: "src/main/groovy/se.fk.gradle.release.gradle"
 
+tasks.withType(Javadoc) {
+	options.addStringOption('Xdoclint:none', '-quiet')
+}
+
+
 tasks.named("release") {
 	tasks = [
 		'clean',

@@ -162,6 +162,14 @@ tasks.withType(JavaCompile).configureEach {
 	})
 }
 
+dependencies {
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+test {
+	useJUnitPlatform()
+}
+
 def shouldGitIgnore(content) {
 	def gitIgnoreFile = file("$rootDir/.gitignore")
 	if (!gitIgnoreFile.exists()) {

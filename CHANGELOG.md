@@ -1,3 +1,9 @@
+## 1.7.2 (2025-10-05)
+
+### Bug Fixes
+
+-  changelog generation ([af5af](https://github.com/Forsakringskassan/gradle-conventions/commit/af5afdf61510c22) Tomas Bjerre)  
+
 ## 1.7.0 (2025-10-05)
 
 ### Features

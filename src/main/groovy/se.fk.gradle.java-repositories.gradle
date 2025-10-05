@@ -19,7 +19,7 @@ repositories {
 def githubOrg = "Forsakringskassan"
 def maxAgeMinutes = System.getenv("GRADLE_CONVENTIONS_MAX_AGE_MINUTES") ?: "5"
 def cacheFile = new File(gradle.gradleUserHomeDir, "${githubOrg}-github-packages.json")
-def token = System.getenv("GITHUB_TOKEN")
+def token = project.findProperty("GITHUB_TOKEN") ?: System.getenv("GITHUB_TOKEN")
 if (!token) {
 	throw new GradleException("GITHUB_TOKEN not set. Cannot fetch GitHub Packages.")
 }
@@ -66,7 +66,7 @@ allRepos.each { repoName ->
 		maven {
 			url = uri("https://maven.pkg.github.com/${githubOrg}/${repoName}")
 			credentials {
-				username = System.getenv("GITHUB_ACTOR")
+				username = project.findProperty("GITHUB_ACTOR") ?: System.getenv("GITHUB_ACTOR")
 				password = token
 			}
 		}

@@ -17,8 +17,8 @@ buildscript {
     maven {
       url = uri("https://maven.pkg.github.com/Forsakringskassan/gradle-conventions")
       credentials {
-        username = System.getenv("GITHUB_ACTOR")
-        password = System.getenv("GITHUB_TOKEN")
+        username = project.findProperty("GITHUB_ACTOR") ?: System.getenv("GITHUB_ACTOR")
+        password = project.findProperty("GITHUB_TOKEN") ?: System.getenv("GITHUB_TOKEN")
       }
     }
   }
@@ -37,9 +37,9 @@ This library is published here on GitHub. To use it you need credentials setup.
 
 - Go to <https://github.com/settings/tokens>
 - You only need `read:packages`
-- Add the credentials as environment variables, perhaps in `~/.bashrc`:
-  - `export GITHUB_TOKEN=the-token`
-  - `export GITHUB_ACTOR=your-github-user`
+- Add the credentials in `~/.gradle/gradle.properties`:
+  - `GITHUB_TOKEN=the-token`
+  - `GITHUB_ACTOR=your-github-user`
 
 ## `se.fk.gradle.bundle-jar`
 

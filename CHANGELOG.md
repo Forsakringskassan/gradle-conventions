@@ -1,3 +1,9 @@
+## 1.7.0 (2025-10-05)
+
+### Features
+
+-  read github credentials from gradle properties ([6b22c](https://github.com/Forsakringskassan/gradle-conventions/commit/6b22cf378feac69) Tomas Bjerre)  
+
 ## 1.5.2 (2025-10-05)
 
 ### Bug Fixes

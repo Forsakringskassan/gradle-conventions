@@ -81,7 +81,7 @@ def runCommand(args, int attempts = 5) {
 	logger.lifecycle("Executing ${args.join(' ')}")
 	def stdout = new ByteArrayOutputStream()
 	try {
-		exec {
+		project.exec {
 			commandLine args
 			standardOutput = stdout
 		}

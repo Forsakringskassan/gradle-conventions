@@ -1,3 +1,13 @@
+## 1.8.0 (2025-10-05)
+
+### Features
+
+-  junit 5 ([b2e1f](https://github.com/Forsakringskassan/gradle-conventions/commit/b2e1f8e6739a349) Tomas Bjerre)  
+
+### Dependency updates
+
+- update actions/checkout action to v5 ([951e3](https://github.com/Forsakringskassan/gradle-conventions/commit/951e389559f9d2b) renovate[bot])  
+- update actions/setup-node action to v5 ([dae63](https://github.com/Forsakringskassan/gradle-conventions/commit/dae636520636e8c) renovate[bot])  
 ## 1.7.2 (2025-10-05)
 
 ### Bug Fixes

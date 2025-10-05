@@ -128,8 +128,6 @@ task generatePmdRules {
     <exclude-pattern>.*/(generated-source|generated|test)/.*</exclude-pattern>
 
     <rule ref="category/java/errorprone.xml">
-        <exclude name="DataflowAnomalyAnalysis"/>
-        <exclude name="BeanMembersShouldSerialize"/>
         <exclude name="AvoidCatchingThrowable"/>
         <exclude name="AvoidLiteralsInIfCondition"/>
         <exclude name="NullAssignment"/>
@@ -189,7 +187,6 @@ task generatePmdRules {
         <exclude name="CollapsibleIfStatements"/>
         <exclude name="NPathComplexity"/>
         <exclude name="NcssCount"/>
-        <exclude name="ExcessiveMethodLength"/>
         <exclude name="DataClass"/>
         <exclude name="TooManyMethods"/>
         <exclude name="GodClass"/>
@@ -234,7 +231,7 @@ task generatePmdRules {
 
 pmd {
 	sourceSets = [sourceSets.main]
-	toolVersion = '6.55.0'
+	toolVersion = '7.17.0'
 	ruleSets = [] // Gradle has some defaults that needs to be cleared
 	ruleSetFiles = files("$buildDir/pmd.xml")
 }

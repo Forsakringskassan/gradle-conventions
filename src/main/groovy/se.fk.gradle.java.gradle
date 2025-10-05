@@ -22,7 +22,7 @@ class JavaExtension {
 			"extraTestSourceFolders",
 			"src/test/generated"
 		])
-		javaVersion.convention(17)
+		javaVersion.convention(21)
 	}
 }
 
@@ -130,12 +130,18 @@ java {
 			JavaLanguageVersion.of(project.extensions.javaExtension.javaVersion.get())
 		}
 	}
-	sourceCompatibility = project.providers.provider {
-		JavaVersion.toVersion(project.extensions.javaExtension.javaVersion.get())
-	}.get()
-	targetCompatibility = project.providers.provider {
-		JavaVersion.toVersion(project.extensions.javaExtension.javaVersion.get())
-	}.get()
+}
+
+// Configure source and target compatibility using afterEvaluate to ensure extension values are available
+project.afterEvaluate {
+	java.sourceCompatibility = JavaVersion.toVersion(project.extensions.javaExtension.javaVersion.get())
+	java.targetCompatibility = JavaVersion.toVersion(project.extensions.javaExtension.javaVersion.get())
+}
+
+tasks.withType(JavaCompile).configureEach {
+	options.release.set(project.providers.provider {
+		project.extensions.javaExtension.javaVersion.get()
+	})
 }
 
 def allCompileTasks = tasks.matching {

@@ -3,7 +3,7 @@ plugins {
 }
 
 javaExtension {
-	javaVersion = 17
+	javaVersion = 21
 }
 
 staticCodeAnalysisExtension {

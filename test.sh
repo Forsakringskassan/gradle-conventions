@@ -3,6 +3,7 @@ set -e
 
 scriptdir=$(pwd)
 
+rm -rf bin
 rm -rf ~/.m2/repository/se/bjurr/gradle
 find . -name build | xargs rm -rf
 

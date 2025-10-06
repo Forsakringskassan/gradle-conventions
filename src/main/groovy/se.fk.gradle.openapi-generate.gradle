@@ -124,7 +124,7 @@ sourceSets.main.java.srcDirs += openapiGeneratedSourceFolder
 dependencies {
 	compileOnly 'io.swagger.core.v3:swagger-annotations:2.2.38'
 	compileOnly 'org.openapitools:jackson-databind-nullable:0.2.7'
-	compileOnly "jakarta.platform:jakarta.jakartaee-api:9.0.0"
+	compileOnly "jakarta.platform:jakarta.jakartaee-api:11.0.0"
 }
 
 def copyResourceToFile(String fromResource, String toFile, classloader = project.buildscript.classLoader) {

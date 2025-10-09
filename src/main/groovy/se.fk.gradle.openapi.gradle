@@ -30,18 +30,6 @@ extension.additionalProperties.convention([
 	useJakartaEe: "true"
 ])
 
-/**
- * Implementation
- */
-dependencies {
-	compileOnly 'io.swagger.core.v3:swagger-annotations:2.2.38'
-	compileOnly 'org.openapitools:jackson-databind-nullable:0.2.7'
-	compileOnly 'org.springframework:spring-web:6.2.11'
-	compileOnly 'org.springframework:spring-context:6.2.11'
-	compileOnly "jakarta.platform:jakarta.jakartaee-api:11.0.0"
-	compileOnly "javax.ws.rs:javax.ws.rs-api:2.1.1"
-}
-
 task prepareOpenapiYaml {
 	doLast {
 		extension.importApis.get().each { dependency ->

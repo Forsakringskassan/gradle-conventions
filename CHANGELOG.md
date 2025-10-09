@@ -1,3 +1,20 @@
+## 1.9.0 (2025-10-09)
+
+### Features
+
+-  **deps**  update dependency jakarta.platform:jakarta.jakartaee-api to v11 ([029e1](https://github.com/Forsakringskassan/gradle-conventions/commit/029e1ed53d4a9bf) renovate[bot])  
+
+### Bug Fixes
+
+-  **deps**  update dependency se.bjurr.gradle.update-versions:se.bjurr.gradle.update-versions.gradle.plugin to v1.5.4 ([78aee](https://github.com/Forsakringskassan/gradle-conventions/commit/78aeeb2e06677a5) renovate[bot])  
+-  **deps**  update spring core to v6.2.11 ([1172b](https://github.com/Forsakringskassan/gradle-conventions/commit/1172b21d57bead3) renovate[bot])  
+-  **deps**  update dependency com.h3xstream.findsecbugs:findsecbugs-plugin to v1.14.0 ([d1747](https://github.com/Forsakringskassan/gradle-conventions/commit/d1747c8c8356afb) renovate[bot])  
+-  **deps**  update dependency com.github.spotbugs:spotbugs to v4.9.6 ([694f7](https://github.com/Forsakringskassan/gradle-conventions/commit/694f72f29860509) renovate[bot])  
+-  **deps**  update dependency org.openapitools:jackson-databind-nullable to v0.2.7 ([0e6b5](https://github.com/Forsakringskassan/gradle-conventions/commit/0e6b52bb9917073) renovate[bot])  
+
+### Dependency updates
+
+- update dependency node to v22 ([e6754](https://github.com/Forsakringskassan/gradle-conventions/commit/e6754bbab48b866) renovate[bot])  
 ## 1.8.0 (2025-10-05)
 
 ### Features

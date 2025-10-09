@@ -1,3 +1,8 @@
+## 1.9.1 (2025-10-09)
+
+### Dependency updates
+
+- tar bort beroenden från openapi-pluginen ([af7e8](https://github.com/Forsakringskassan/gradle-conventions/commit/af7e898471181b6) Bjerre Tomas (66128244))  
 ## 1.9.0 (2025-10-09)
 
 ### Features

@@ -1,3 +1,9 @@
+## 1.13.1 (2025-10-10)
+
+### Bug Fixes
+
+-  read env for publishing ([65c16](https://github.com/Forsakringskassan/gradle-conventions/commit/65c16ceb8af3f5e) Tomas Bjerre)  
+
 ## 1.13.0 (2025-10-10)
 
 ### Features

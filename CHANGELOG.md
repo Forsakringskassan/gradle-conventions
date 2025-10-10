@@ -1,3 +1,9 @@
+## 1.13.0 (2025-10-10)
+
+### Features
+
+-  publish till gemensamt repo ([83712](https://github.com/Forsakringskassan/gradle-conventions/commit/8371290904b707c) Tomas Bjerre)  
+
 ## 1.12.0 (2025-10-10)
 
 ### Features

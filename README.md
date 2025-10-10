@@ -55,7 +55,7 @@ Applied in root for API repositories, to prodouce a JAR containing the specifica
 
 See example in [template-api](https://github.com/Forsakringskassan/template-api).
 
-A client might be created by generating a `jaxrs-spec` and use that with [jaxrs-client-factory](https://github.com/Forsakringskassan/jaxrs-client-factory).
+You may configure it to create a JAR containing `jaxrs-spec` and use that with [jaxrs-client-factory](https://github.com/Forsakringskassan/jaxrs-client-factory) to create a client. Or just create a JAR with the spec and use `se.fk.gradle.openapi-generate` to create a client.
 
 ```mermaid
 flowchart TB
@@ -88,7 +88,9 @@ flowchart TB
 
 Can be applied whenever you need code generated from a JAR produced by `se.fk.gradle.bundle-openapi`.
 
-See example in [template-jar-api-generate](https://github.com/Forsakringskassan/template-jar-api-generate)
+See example in [template-jar-api-generate](https://github.com/Forsakringskassan/template-jar-api-generate).
+
+If you generate with `jaxrs-spec`, you can use that with [jaxrs-client-factory](https://github.com/Forsakringskassan/jaxrs-client-factory) to create a client.
 
 ```mermaid
 flowchart TB

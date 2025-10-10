@@ -6,6 +6,8 @@ See documentation [in the code](/src/main/groovy) and also [running examples](/e
 
 Release with `./gradlew updateVersion && ./gradlew release`.
 
+It is published to: https://github.com/Forsakringskassan/repository
+
 Use these plugins like this:
 
 ```groovy
@@ -15,7 +17,7 @@ buildscript {
     mavenCentral()
     mavenLocal()
     maven {
-      url = uri("https://maven.pkg.github.com/Forsakringskassan/gradle-conventions")
+      url = uri("https://maven.pkg.github.com/Forsakringskassan/repository")
       credentials {
         username = project.findProperty("GITHUB_ACTOR") ?: System.getenv("GITHUB_ACTOR")
         password = project.findProperty("GITHUB_TOKEN") ?: System.getenv("GITHUB_TOKEN")

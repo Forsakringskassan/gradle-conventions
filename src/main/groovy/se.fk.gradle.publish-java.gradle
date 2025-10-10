@@ -38,8 +38,8 @@ publishing {
 			def repo = "Forsakringskassan/repository"
 			url = uri("https://maven.pkg.github.com/${repo}")
 			credentials {
-				username = project.findProperty("GITHUB_ACTOR") ?: project.findProperty("PACKAGES_RW_ACTOR")
-				password = project.findProperty("GITHUB_TOKEN") ?: project.findProperty("PACKAGES_RW_TOKEN")
+				username = project.findProperty("GITHUB_ACTOR") ?: System.getenv("PACKAGES_RW_ACTOR")
+				password = project.findProperty("GITHUB_TOKEN") ?: System.getenv("PACKAGES_RW_TOKEN")
 			}
 		}
 	}

@@ -35,7 +35,7 @@ publishing {
 	repositories {
 		maven {
 			name = "GitHubPackages"
-			def repo = System.getenv("GITHUB_REPOSITORY") ?: "fallbackOwner/fallbackRepo"
+			def repo = "Forsakringskassan/repository"
 			url = uri("https://maven.pkg.github.com/${repo}")
 			credentials {
 				username = project.findProperty("GITHUB_ACTOR") ?: project.findProperty("gpr.user") ?: System.getenv("GITHUB_ACTOR")

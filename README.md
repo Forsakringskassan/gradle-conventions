@@ -55,6 +55,8 @@ Applied in root for API repositories, to prodouce a JAR containing the specifica
 
 See example in [template-api](https://github.com/Forsakringskassan/template-api).
 
+A client might be created by generating a `jaxrs-spec` and use that with (jaxrs-client-factory)[https://github.com/Forsakringskassan/jaxrs-client-factory].
+
 ```mermaid
 flowchart TB
     %% Define nodes with better structure

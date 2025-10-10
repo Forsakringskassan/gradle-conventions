@@ -19,8 +19,8 @@ buildscript {
     maven {
       url = uri("https://maven.pkg.github.com/Forsakringskassan/repository")
       credentials {
-        username = project.findProperty("GITHUB_ACTOR") ?: System.getenv("GITHUB_ACTOR")
-        password = project.findProperty("GITHUB_TOKEN") ?: System.getenv("GITHUB_TOKEN")
+        username = project.findProperty("GITHUB_ACTOR") ?: System.getenv("PACKAGES_RW_ACTOR")
+        password = project.findProperty("GITHUB_TOKEN") ?: System.getenv("PACKAGES_RW_TOKEN")
       }
     }
   }

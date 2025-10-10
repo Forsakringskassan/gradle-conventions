@@ -15,6 +15,7 @@ jobs:
         with:
           distribution: zulu
           java-version: '25'
+          cache: gradle
 
       - name: Make test.sh executable
         run: chmod +x test.sh

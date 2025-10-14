@@ -1,3 +1,9 @@
+## 1.14.0 (2025-10-14)
+
+### Features
+
+-  låter Gradle applicera openapi-node-client-generator-cli ([2c14b](https://github.com/Forsakringskassan/gradle-conventions/commit/2c14b62abee18e5) Tomas Bjerre)  
+
 ## 1.13.1 (2025-10-10)
 
 ### Bug Fixes

@@ -100,8 +100,30 @@ copySpec.dependsOn generateFullJarApiGenerator
 def artifactgroupstring = artifactGroup.replace(".", "/")
 logger.info("artict string ${artifactgroupstring}")
 
+tasks.register('applyNpmFiles') {
+	doLast {
+		if (project == rootProject) {
+			logger.lifecycle("Running npm file generator for ${project.name}")
+
+			def process = new ProcessBuilder(
+					"npx", "@forsakringskassan/openapi-node-client-generator-cli",
+					"--package-name", "@forsakringskassan/${project.name}",
+					"--package-version", "${project.version}",
+					"--package-url", "https://github.com/Forsakringskassan/${project.name}"
+					)
+					.directory(project.projectDir)
+					.inheritIO()
+					.start()
+
+			def exitCode = process.waitFor()
+			logger.lifecycle("applyNpmFiles exited with code: ${exitCode}")
+		}
+	}
+}
+
 tasks.named("processResources") {
 	dependsOn("copySpec")
+	dependsOn("applyNpmFiles")
 }
 sourceSets.main.java.srcDirs += "$buildDir/generated-source/src/main/java"
 sourceSets.main.java.srcDirs += "$buildDir/generated-source/src/gen/java"

@@ -1,3 +1,9 @@
+## 1.15.1 (2025-10-22)
+
+### Bug Fixes
+
+-  jackson 2.19.0 ([1c6c6](https://github.com/Forsakringskassan/gradle-conventions/commit/1c6c6fbe89b7cf5) Tomas Bjerre)  
+
 ## 1.15.0 (2025-10-22)
 
 ### Features

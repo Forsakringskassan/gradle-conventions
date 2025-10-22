@@ -1,2 +1,2 @@
 src/generated-source
-src/main/resources/asyncapi.yaml
+src/generated/java

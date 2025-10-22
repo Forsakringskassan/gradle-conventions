@@ -1,3 +1,15 @@
+## 1.15.0 (2025-10-22)
+
+### Features
+
+-  asyncapi ([55304](https://github.com/Forsakringskassan/gradle-conventions/commit/55304de6811c1c4) Tomas Bjerre)  
+
+### Bug Fixes
+
+-  **deps**  update dependency com.github.spotbugs.snom:spotbugs-gradle-plugin to v6.4.3 ([48a53](https://github.com/Forsakringskassan/gradle-conventions/commit/48a539c6f013ad2) renovate[bot])  
+-  **deps**  update dependency com.github.spotbugs:spotbugs to v4.9.7 ([7381f](https://github.com/Forsakringskassan/gradle-conventions/commit/7381fac1e89716d) renovate[bot])  
+-  **deps**  update dependency io.swagger.core.v3:swagger-annotations to v2.2.39 ([8197a](https://github.com/Forsakringskassan/gradle-conventions/commit/8197a5c1049ebb7) renovate[bot])  
+
 ## 1.14.0 (2025-10-14)
 
 ### Features

@@ -1,0 +1,3 @@
+plugins {
+	id "se.fk.gradle.bundle-asyncapi" version "latest-SNAPSHOT"
+}

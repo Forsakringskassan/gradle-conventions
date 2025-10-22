@@ -1,0 +1,20 @@
+plugins {
+	id "se.fk.gradle.java" apply false
+	id "se.fk.gradle.java-repositories" apply false
+	id "se.fk.gradle.pom" apply false
+	id "se.fk.gradle.publish-java" apply false
+	id "se.fk.gradle.release"
+	id "se.fk.gradle.asyncapi" apply false
+}
+
+allprojects {
+	apply plugin: "se.fk.gradle.java"
+	apply plugin: "se.fk.gradle.java-repositories"
+	apply plugin: "se.fk.gradle.pom"
+	apply plugin: "se.fk.gradle.publish-java"
+	apply plugin: "se.fk.gradle.asyncapi"
+}
+
+releaseExtension {
+	releasePostTasks = ["publish",]
+}

@@ -1,0 +1,52 @@
+import org.gradle.api.provider.Property
+import org.gradle.api.provider.ListProperty
+import org.gradle.api.provider.MapProperty
+
+interface FKAsyncApiPluginExtension {
+}
+
+def extension = project.extensions.create("fkAsyncApi", FKAsyncApiPluginExtension)
+
+tasks.register('generateJarApi') {
+	def outputDir = "${project.rootDir}/src/generated-source/java/" + project.group.replaceAll("\\.", "/")
+	def generateCommand = "npx @asyncapi/cli@3.5.2 generate models java ./asyncapi.yaml --packageName=${project.group} -o ${outputDir} --javaJackson"
+	doLast {
+		def generateCommandResult = new ProcessBuilder(generateCommand.split(" "))
+				.directory(project.projectDir)
+				.inheritIO()
+				.start()
+				.waitFor()
+
+		logger.lifecycle("Generate command exit code: ${generateCommandResult}")
+	}
+}
+
+shouldGitIgnore("src/main/resources/asyncapi.yaml")
+def resources = file("src/main/resources")
+resources.mkdirs()
+task copySpec(type: Copy) {
+	from file("$rootDir/asyncapi.yaml")
+	into file("src/main/resources")
+}
+
+tasks.named("processResources") {
+	dependsOn("copySpec")
+	dependsOn("generateJarApi")
+}
+
+dependencies {
+	implementation 'com.fasterxml.jackson.core:jackson-annotations:2.20.0'
+	implementation 'com.fasterxml.jackson.core:jackson-core:2.20.0'
+	implementation 'com.fasterxml.jackson.core:jackson-databind:2.20.0'
+}
+
+def shouldGitIgnore(content) {
+	def gitIgnoreFile = file("$rootDir/.gitignore")
+	if (!gitIgnoreFile.exists()) {
+		throw new RuntimeException("There should be a .gitignore in the root of the repo.")
+	}
+	def gitIgnoreContent = gitIgnoreFile.text
+	if (!gitIgnoreContent.contains(content)) {
+		throw new RuntimeException(content + " should be included in .gitignore.")
+	}
+}

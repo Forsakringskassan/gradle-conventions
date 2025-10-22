@@ -1,3 +1,9 @@
+## 1.17.0 (2025-10-22)
+
+### Features
+
+-  sätt version i asyncapi.yaml ([042c4](https://github.com/Forsakringskassan/gradle-conventions/commit/042c4b2cc6dcebb) Tomas Bjerre)  
+
 ## 1.15.2 (2025-10-22)
 
 ### Bug Fixes

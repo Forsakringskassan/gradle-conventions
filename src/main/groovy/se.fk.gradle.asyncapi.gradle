@@ -1,12 +1,7 @@
-import org.gradle.api.provider.Property
-import org.gradle.api.provider.ListProperty
-import org.gradle.api.provider.MapProperty
-
 interface FKAsyncApiPluginExtension {
 }
 
 def extension = project.extensions.create("fkAsyncApi", FKAsyncApiPluginExtension)
-
 
 def generatedDir = "src/generated-source/java"
 
@@ -25,21 +20,37 @@ tasks.register('generateJarApi') {
 	}
 }
 
-tasks.register("copySpec", Copy) {
-	def resourcesDir = layout.buildDirectory.dir("src/main/resources")
-	doFirst {
-		shouldGitIgnore("src/main/resources/asyncapi.yaml")
-		resourcesDir.get().asFile.mkdirs()
+tasks.register("copySpec") {
+	def tempDir = layout.buildDirectory.dir("asyncapi-temp")
+	outputs.dir(tempDir)
+	doLast {
+		tempDir.get().asFile.mkdirs()
+
+		def asyncApiFile = file("$rootDir/asyncapi.yaml")
+		def asyncApiYaml = new org.yaml.snakeyaml.Yaml().load(asyncApiFile.text)
+
+		asyncApiYaml.info.version = project.version
+
+		def outputFile = new File(tempDir.get().asFile, "asyncapi.yaml")
+		outputFile.text = new org.yaml.snakeyaml.Yaml().dump(asyncApiYaml)
+
+		logger.lifecycle("Updated asyncapi.yaml version to: ${project.version}")
 	}
-	from("$rootDir/asyncapi.yaml")
-	into(resourcesDir)
 }
 
 generateJarApi.dependsOn tasks.copySpec
+compileJava.dependsOn tasks.generateJarApi
 tasks.named("prepareJavacCodegenFolder").configure {
 	generateJarApi.mustRunAfter it
 }
-compileJava.dependsOn tasks.generateJarApi
+
+
+tasks.named('processResources') {
+	dependsOn tasks.copySpec
+	from(layout.buildDirectory.dir("asyncapi-temp")) {
+		include "asyncapi.yaml"
+	}
+}
 
 dependencies {
 	implementation 'com.fasterxml.jackson.core:jackson-annotations:2.19.0'

@@ -7,10 +7,14 @@ interface FKAsyncApiPluginExtension {
 
 def extension = project.extensions.create("fkAsyncApi", FKAsyncApiPluginExtension)
 
+
+def generatedDir = "src/generated-source/java"
+
 tasks.register('generateJarApi') {
-	def outputDir = "${project.rootDir}/src/generated-source/java/" + project.group.replaceAll("\\.", "/")
-	def generateCommand = "npx @asyncapi/cli@3.5.2 generate models java ./asyncapi.yaml --packageName=${project.group} -o ${outputDir} --javaJackson"
+	def outputDir = "${project.rootDir}/${generatedDir}/" + project.group.replaceAll("\\.", "/")
+	def generateCommand = "npx @asyncapi/cli@3.5.2 generate models java ${project.rootDir}/asyncapi.yaml --packageName=${project.group} -o ${outputDir} --javaJackson"
 	doLast {
+		logger.lifecycle("Running generate command:\n  ${generateCommand}")
 		def generateCommandResult = new ProcessBuilder(generateCommand.split(" "))
 				.directory(project.projectDir)
 				.inheritIO()
@@ -21,18 +25,21 @@ tasks.register('generateJarApi') {
 	}
 }
 
-shouldGitIgnore("src/main/resources/asyncapi.yaml")
-def resources = file("src/main/resources")
-resources.mkdirs()
-task copySpec(type: Copy) {
-	from file("$rootDir/asyncapi.yaml")
-	into file("src/main/resources")
+tasks.register("copySpec", Copy) {
+	def resourcesDir = layout.buildDirectory.dir("src/main/resources")
+	doFirst {
+		shouldGitIgnore("src/main/resources/asyncapi.yaml")
+		resourcesDir.get().asFile.mkdirs()
+	}
+	from("$rootDir/asyncapi.yaml")
+	into(resourcesDir)
 }
 
-tasks.named("processResources") {
-	dependsOn("copySpec")
-	dependsOn("generateJarApi")
+generateJarApi.dependsOn tasks.copySpec
+tasks.named("prepareJavacCodegenFolder").configure {
+	generateJarApi.mustRunAfter it
 }
+compileJava.dependsOn tasks.generateJarApi
 
 dependencies {
 	implementation 'com.fasterxml.jackson.core:jackson-annotations:2.19.0'

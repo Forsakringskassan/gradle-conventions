@@ -1,3 +1,9 @@
+## 1.17.1 (2025-10-22)
+
+### Bug Fixes
+
+-  adding formatting ([083e3](https://github.com/Forsakringskassan/gradle-conventions/commit/083e390b599c6c7) Tomas Bjerre)  
+
 ## 1.17.0 (2025-10-22)
 
 ### Features

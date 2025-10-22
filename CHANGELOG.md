@@ -1,3 +1,9 @@
+## 1.15.2 (2025-10-22)
+
+### Bug Fixes
+
+-  async classes were not included in jar ([bdede](https://github.com/Forsakringskassan/gradle-conventions/commit/bdede5fe09e3504) Tomas Bjerre)  
+
 ## 1.15.1 (2025-10-22)
 
 ### Bug Fixes

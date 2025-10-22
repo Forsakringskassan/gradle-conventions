@@ -4,6 +4,7 @@ plugins {
 	id "se.fk.gradle.pom" apply false
 	id "se.fk.gradle.publish-java" apply false
 	id "se.fk.gradle.release"
+	id "se.fk.gradle.formatting" apply false
 	id "se.fk.gradle.asyncapi" apply false
 }
 
@@ -12,6 +13,7 @@ allprojects {
 	apply plugin: "se.fk.gradle.java-repositories"
 	apply plugin: "se.fk.gradle.pom"
 	apply plugin: "se.fk.gradle.publish-java"
+	apply plugin: "se.fk.gradle.formatting"
 	apply plugin: "se.fk.gradle.asyncapi"
 }
 

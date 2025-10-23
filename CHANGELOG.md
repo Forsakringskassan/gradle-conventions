@@ -1,3 +1,11 @@
+## 1.17.2 (2025-10-23)
+
+### Bug Fixes
+
+-  do add on any generated CHANGELOG.md ([41bd9](https://github.com/Forsakringskassan/gradle-conventions/commit/41bd949b06ae027) Tomas Bjerre)  
+-  **deps**  update dependency com.github.spotbugs.snom:spotbugs-gradle-plugin to v6.4.4 ([ff729](https://github.com/Forsakringskassan/gradle-conventions/commit/ff7295ed76eb738) renovate[bot])  
+-  **deps**  update dependency com.github.spotbugs:spotbugs to v4.9.8 ([6d316](https://github.com/Forsakringskassan/gradle-conventions/commit/6d31648756a2944) renovate[bot])  
+
 ## 1.17.1 (2025-10-22)
 
 ### Bug Fixes

@@ -1,3 +1,9 @@
+## 1.17.3 (2025-10-23)
+
+### Bug Fixes
+
+-  build asyncapi on Windows ([2ceed](https://github.com/Forsakringskassan/gradle-conventions/commit/2ceed7cc17fb3bc) Tomas Bjerre)  
+
 ## 1.17.2 (2025-10-23)
 
 ### Bug Fixes

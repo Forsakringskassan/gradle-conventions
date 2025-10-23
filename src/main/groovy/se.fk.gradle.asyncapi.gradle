@@ -8,6 +8,9 @@ def generatedDir = "src/generated-source/java"
 tasks.register('generateJarApi') {
 	def outputDir = "${project.rootDir}/${generatedDir}/" + project.group.replaceAll("\\.", "/")
 	def generateCommand = "npx @asyncapi/cli@3.5.2 generate models java ${project.rootDir}/asyncapi.yaml --packageName=${project.group} -o ${outputDir} --javaJackson"
+	if (isWindows()) {
+		generateCommand = "cmd /c " + generateCommand
+	}
 	doLast {
 		logger.lifecycle("Running generate command:\n  ${generateCommand}")
 		def generateCommandResult = new ProcessBuilder(generateCommand.split(" "))
@@ -67,4 +70,8 @@ def shouldGitIgnore(content) {
 	if (!gitIgnoreContent.contains(content)) {
 		throw new RuntimeException(content + " should be included in .gitignore.")
 	}
+}
+
+def isWindows() {
+	return System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')
 }

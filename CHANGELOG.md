@@ -1,3 +1,9 @@
+## 1.17.4 (2025-10-23)
+
+### Bug Fixes
+
+-  annotation processing to src/generated-source/java ([db531](https://github.com/Forsakringskassan/gradle-conventions/commit/db531ccacf81f1e) Tomas Bjerre)  
+
 ## 1.17.3 (2025-10-23)
 
 ### Bug Fixes

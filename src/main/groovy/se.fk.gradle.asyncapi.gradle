@@ -10,7 +10,14 @@ tasks.register('generateJarApi') {
 	def generateCommand = "npx @asyncapi/cli@3.5.2 generate models java ${project.rootDir}/asyncapi.yaml --packageName=${project.group} -o ${outputDir} --javaJackson"
 	doLast {
 		logger.lifecycle("Running generate command:\n  ${generateCommand}")
-		def generateCommandResult = new ProcessBuilder(generateCommand.split(" "))
+		// Anrop cmd /c för att Windows ska hitta npx.
+		def commandList = [
+			"cmd",
+			"/c",
+			generateCommand
+		].asType(String[])
+
+		def generateCommandResult = new ProcessBuilder(commandList)
 				.directory(project.projectDir)
 				.inheritIO()
 				.start()

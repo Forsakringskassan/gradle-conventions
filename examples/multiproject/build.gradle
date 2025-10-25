@@ -19,6 +19,6 @@ project("project2", {
 	}
 	dependencies {
 		implementation project(":project1")
-		implementation 'com.google.code.gson:gson:2.13.1'
+		implementation 'com.google.code.gson:gson:2.13.2'
 	}
 })

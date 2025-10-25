@@ -8,8 +8,8 @@ javaExtension {
 
 project("project1", {
 	dependencies {
-		compileOnly "org.immutables:value:2.10.1"
-		annotationProcessor 'org.immutables:value:2.10.1'
+		compileOnly "org.immutables:value:2.11.6"
+		annotationProcessor 'org.immutables:value:2.11.6'
 	}
 })
 

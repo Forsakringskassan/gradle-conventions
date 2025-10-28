@@ -1,3 +1,9 @@
+## 1.18.0 (2025-10-28)
+
+### Features
+
+-  se.fk.gradle.include-virtual plugin ([c1e5d](https://github.com/Forsakringskassan/gradle-conventions/commit/c1e5d49b7c6197f) Tomas Bjerre)  
+
 ## 1.17.5 (2025-10-28)
 
 ### Bug Fixes

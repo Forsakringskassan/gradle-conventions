@@ -1,3 +1,16 @@
+## 1.17.5 (2025-10-28)
+
+### Bug Fixes
+
+-  correct sca folder ([90c90](https://github.com/Forsakringskassan/gradle-conventions/commit/90c90728209489b) Tomas Bjerre)  
+-  **deps**  update dependency org.springframework.boot:spring-boot-starter-validation to v3.5.7 ([ba5e6](https://github.com/Forsakringskassan/gradle-conventions/commit/ba5e6e458b8d739) renovate[bot])  
+-  **deps**  update spring core to v6.2.12 ([4632a](https://github.com/Forsakringskassan/gradle-conventions/commit/4632a2b2af6934a) renovate[bot])  
+-  **deps**  update dependency org.springframework.boot:spring-boot-starter-validation to v3.5.6 ([6a47b](https://github.com/Forsakringskassan/gradle-conventions/commit/6a47b40548fc2ca) renovate[bot])  
+-  **deps**  update dependency org.immutables:value to v2.11.6 ([07824](https://github.com/Forsakringskassan/gradle-conventions/commit/0782464b75571c9) renovate[bot])  
+-  **deps**  update dependency com.google.code.gson:gson to v2.13.2 ([bb523](https://github.com/Forsakringskassan/gradle-conventions/commit/bb5239f9d893c0c) renovate[bot])  
+-  **deps**  update jackson monorepo ([210b7](https://github.com/Forsakringskassan/gradle-conventions/commit/210b7af1c57e245) renovate[bot])  
+-  **deps**  update dependency org.yaml:snakeyaml to v2.5 ([c9567](https://github.com/Forsakringskassan/gradle-conventions/commit/c9567b62e4759d3) renovate[bot])  
+
 ## 1.17.4 (2025-10-23)
 
 ### Bug Fixes

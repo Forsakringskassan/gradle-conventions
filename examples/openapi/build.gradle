@@ -1,7 +1,24 @@
 plugins {
-	id "se.fk.gradle.bundle-openapi" version "latest-SNAPSHOT"
+	id "se.fk.gradle.bundle-openapi"
 }
 
-fkOpenApi {
-	generatorName.set("openapi-yaml")
-}
+project("example-spec",{
+	fkOpenApi {
+		generatorName.set("openapi-yaml")
+	}
+})
+
+project("example-jaxrs-spec",{
+	fkOpenApi {
+		generatorName.set("jaxrs-spec")
+	}
+
+	dependencies {
+		compileOnly 'jakarta.ws.rs:jakarta.ws.rs-api:4.0.0'
+		compileOnly 'jakarta.annotation:jakarta.annotation-api:3.0.0'
+		compileOnly 'jakarta.validation:jakarta.validation-api:3.1.1'
+		compileOnly 'com.fasterxml.jackson.core:jackson-databind:2.20.0'
+		compileOnly 'com.fasterxml.jackson.core:jackson-annotations:2.20'
+		compileOnly 'com.fasterxml.jackson.core:jackson-core:2.20.0'
+	}
+})

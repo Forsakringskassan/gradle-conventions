@@ -1,0 +1,15 @@
+/**
+ * Apply in settings.gradle.
+ * Adds includeVirtual method that both includes given projects.
+ * If the project folders dont exist, they are created.
+ */
+ext.includeVirtual = { String... projectNames ->
+	projectNames.each { projectName ->
+		def projectDir = new File(rootDir, projectName)
+		if (!projectDir.exists()) {
+			projectDir.mkdirs()
+			println "Created: ${projectDir.absolutePath}"
+		}
+		include(projectName)
+	}
+}

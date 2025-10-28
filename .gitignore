@@ -20,3 +20,6 @@ examples/openapi/package.json
 examples/openapi/src/*
 examples/openapi/template/
 examples/openapi/tsconfig.json
+examples/openapi/example-jaxrs-spec
+examples/openapi/example-spec
+

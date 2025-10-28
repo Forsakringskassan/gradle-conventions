@@ -1,7 +1,13 @@
 pluginManagement {
 	repositories {
 		mavenLocal()
-		mavenCentral()
 		gradlePluginPortal()
+		mavenCentral()
 	}
 }
+
+plugins {
+	id 'se.fk.gradle.include-virtual' version 'latest-SNAPSHOT'
+}
+
+includeVirtual "example-jaxrs-spec", "example-spec"

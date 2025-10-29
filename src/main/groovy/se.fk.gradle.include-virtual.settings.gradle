@@ -1,7 +1,6 @@
 /**
  * Apply in settings.gradle.
- * Adds includeVirtual method that both includes given projects.
- * If the project folders dont exist, they are created.
+ * Adds includeVirtual method that both includes given projects and creates their folders.
  */
 ext.includeVirtual = { String... projectNames ->
 	projectNames.each { projectName ->

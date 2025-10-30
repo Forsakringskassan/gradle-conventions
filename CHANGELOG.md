@@ -1,3 +1,13 @@
+## 1.18.1 (2025-10-30)
+
+### Bug Fixes
+
+-  **deps**  update dependency se.bjurr.gradle.update-versions:se.bjurr.gradle.update-versions.gradle.plugin to v1.5.5 ([0b813](https://github.com/Forsakringskassan/gradle-conventions/commit/0b8130ba99905a3) renovate[bot])  
+-  **deps**  update dependency org.openapitools:jackson-databind-nullable to v0.2.8 ([76182](https://github.com/Forsakringskassan/gradle-conventions/commit/761820c9c9ef673) renovate[bot])  
+
+### Dependency updates
+
+- update plugin se.bjurr.gradle.update-versions to v1.5.5 ([dd6f3](https://github.com/Forsakringskassan/gradle-conventions/commit/dd6f3e928ab1a20) renovate[bot])  
 ## 1.18.0 (2025-10-28)
 
 ### Features

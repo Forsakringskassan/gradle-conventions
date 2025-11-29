@@ -18,7 +18,7 @@ dependencies {
 	implementation "se.bjurr.violations:violations-lib:1.160.3"
 	implementation "com.diffplug.spotless:spotless-plugin-gradle:8.1.0"
 	implementation "se.bjurr.violations:violations-gradle-plugin:4.1.2"
-	implementation "com.github.spotbugs.snom:spotbugs-gradle-plugin:6.4.5"
+	implementation "com.github.spotbugs.snom:spotbugs-gradle-plugin:6.4.6"
 	implementation "org.openapitools:openapi-generator-gradle-plugin:7.17.0"
 	implementation 'org.yaml:snakeyaml:2.5'
 }

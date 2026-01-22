@@ -56,9 +56,9 @@ tasks.named('processResources') {
 }
 
 dependencies {
-	implementation 'com.fasterxml.jackson.core:jackson-annotations:2.20'
-	implementation 'com.fasterxml.jackson.core:jackson-core:2.20.1'
-	implementation 'com.fasterxml.jackson.core:jackson-databind:2.20.1'
+	implementation 'com.fasterxml.jackson.core:jackson-annotations:2.21'
+	implementation 'com.fasterxml.jackson.core:jackson-core:2.21.0'
+	implementation 'com.fasterxml.jackson.core:jackson-databind:2.21.0'
 }
 
 def shouldGitIgnore(content) {

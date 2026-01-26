@@ -4,7 +4,7 @@
 plugins {
 	id "groovy-gradle-plugin"
 	id "se.bjurr.gitchangelog.git-changelog-gradle-plugin" version "3.1.1" apply false
-	id "com.diffplug.spotless" version "8.1.0"
+	id "com.diffplug.spotless" version "8.2.0"
 	id "se.bjurr.gradle.update-versions" version "1.5.7"
 	id "maven-publish"
 }

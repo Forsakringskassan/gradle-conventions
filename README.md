@@ -84,6 +84,8 @@ flowchart TB
     classDef repo fill:#e8f5e8,stroke:#2e7d32,stroke-width:3px,color:#000
 ```
 
+In order to publish NPM packages, [Trusted Publishers](https://docs.npmjs.com/trusted-publishers) needs to be setup.
+
 ## `se.fk.gradle.openapi-generate`
 
 Can be applied whenever you need code generated from a JAR produced by `se.fk.gradle.bundle-openapi`.

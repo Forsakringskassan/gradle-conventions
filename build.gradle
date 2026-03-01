@@ -20,7 +20,7 @@ dependencies {
 	implementation "se.bjurr.violations:violations-gradle-plugin:4.1.2"
 	implementation "com.github.spotbugs.snom:spotbugs-gradle-plugin:6.4.8"
 	implementation "org.openapitools:openapi-generator-gradle-plugin:7.17.0"
-	implementation 'org.yaml:snakeyaml:2.5'
+	implementation 'org.yaml:snakeyaml:2.6'
 }
 
 repositories {

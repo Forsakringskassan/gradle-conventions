@@ -1,3 +1,20 @@
+## 1.18.3 (2026-06-18)
+
+### Bug Fixes
+
+-  **deps**  update dependency io.swagger.core.v3:swagger-annotations to v2.2.51 ([6df02](https://github.com/Forsakringskassan/gradle-conventions/commit/6df02a535f43841) renovate[bot])  
+-  **deps**  update dependency com.github.spotbugs.snom:spotbugs-gradle-plugin to v6.5.6 ([81e24](https://github.com/Forsakringskassan/gradle-conventions/commit/81e24f772f5014a) renovate[bot])  
+-  **deps**  update dependency com.github.spotbugs:spotbugs to v4.10.2 ([7748c](https://github.com/Forsakringskassan/gradle-conventions/commit/7748cebcce7c52e) renovate[bot])  
+-  **deps**  update dependency com.github.spotbugs:spotbugs to v4.10.1 ([1acdd](https://github.com/Forsakringskassan/gradle-conventions/commit/1acdd68c74ea1e0) renovate[bot])  
+-  **deps**  update jackson monorepo to v2.22.0 ([91e51](https://github.com/Forsakringskassan/gradle-conventions/commit/91e519008edd2b2) renovate[bot])  
+-  **deps**  update jackson monorepo to v2.22 ([5370e](https://github.com/Forsakringskassan/gradle-conventions/commit/5370e40313850bf) renovate[bot])  
+-  **deps**  update dependency pmd to v7.25.0 ([2777e](https://github.com/Forsakringskassan/gradle-conventions/commit/2777e1889d1e70c) renovate[bot])  
+-  **deps**  update jackson monorepo to v2.21.4 ([1a293](https://github.com/Forsakringskassan/gradle-conventions/commit/1a293eaa0a87a19) renovate[bot])  
+-  **deps**  update dependency com.diffplug.spotless:spotless-plugin-gradle to v8.6.0 ([25ef7](https://github.com/Forsakringskassan/gradle-conventions/commit/25ef7857f85b699) renovate[bot])  
+
+### Dependency updates
+
+- update plugin com.diffplug.spotless to v8.6.0 ([017fc](https://github.com/Forsakringskassan/gradle-conventions/commit/017fc08043e6cb1) renovate[bot])  
 ## 1.18.2 (2026-05-29)
 
 ### Bug Fixes
